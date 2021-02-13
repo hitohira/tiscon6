@@ -130,7 +130,6 @@ public class EstimateDao {
      */
     public int getPricePerTruck(int boxNum) {
         String sql = "SELECT PRICE FROM TRUCK_CAPACITY WHERE MAX_BOX >= :boxNum ORDER BY PRICE LIMIT 1";
-
         SqlParameterSource paramSource = new MapSqlParameterSource("boxNum", boxNum);
         return parameterJdbcTemplate.queryForObject(sql, paramSource, Integer.class);
     }
