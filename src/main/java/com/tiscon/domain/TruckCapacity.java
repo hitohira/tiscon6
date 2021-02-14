@@ -1,8 +1,8 @@
 package com.tiscon.domain;
 
-import java.io.Serializable;
+        import java.io.Serializable;
 
-public class Truck implements Serializable {
+public class TruckCapacity implements Serializable {
 
     private int truckId;
 

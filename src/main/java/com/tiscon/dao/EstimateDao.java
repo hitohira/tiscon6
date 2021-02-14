@@ -83,6 +83,17 @@ public class EstimateDao {
     }
 
     /**
+     *  トラックテーブルに登録されているすべてのトラック情報を取得する。
+     *
+     * @return すべてのトラック
+     */
+    public List<TruckCapacity> getAllTrucks() {
+        String sql = "SELECT * FROM TRUCK_CAPACITY";
+        return parameterJdbcTemplate.query(sql,
+                BeanPropertyRowMapper.newInstance(TruckCapacity.class));
+    }
+
+    /**
      * 都道府県間の距離を取得する。
      *
      * @param prefectureIdFrom 引っ越し元の都道府県
