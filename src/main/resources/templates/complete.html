@@ -21,5 +21,16 @@
 <script src="../js/jquery-3.5.1.min.js" th:src="@{/js/jquery-3.5.1.min.js}"></script>
 <script src="../js/popper.min.js" th:src="@{/js/popper.min.js}"></script>
 <script src="../js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+<!--<script src="../js/browserBackCancel.js" th:src="@{/js/browerBackCancel.js}"></script>-->
+<script>
+  $(function(){
+ history.pushState(null, null, null); //ブラウザバック無効化
+ //ブラウザバックボタン押下時
+ $(window).on("popstate", function (event) {
+   history.pushState(null, null, null);
+   window.alert('前のページに戻る場合、前に戻るボタンから戻ってください。');
+ });
+});
+</script>
 </body>
 </html>
