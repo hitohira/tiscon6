@@ -75,10 +75,22 @@ public class EstimateController {
      * @return 遷移先
      */
     @PostMapping(value = "submit", params = "confirm")
-    String confirm(UserOrderForm userOrderForm, Model model) {
+    String confirm(@Validated UserOrderForm userOrderForm, BindingResult result, Model model) {
 
         model.addAttribute("prefectures", estimateDAO.getAllPrefectures());
         model.addAttribute("userOrderForm", userOrderForm);
+
+        /*TODO
+            done userOrderformを確認
+            done 間違った項目があったらもとのページにもどす  <- もともとconfirmでやってるはず
+            もとのページにエラー表示を入れる input.htmlを変える
+        */
+        if (result.hasErrors()) {
+            model.addAttribute("prefectures", estimateDAO.getAllPrefectures());
+            model.addAttribute("userOrderForm", userOrderForm);
+            return "input";
+        }
+
         return "confirm";
     }
 
