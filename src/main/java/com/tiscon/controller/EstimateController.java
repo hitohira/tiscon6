@@ -80,11 +80,6 @@ public class EstimateController {
         model.addAttribute("prefectures", estimateDAO.getAllPrefectures());
         model.addAttribute("userOrderForm", userOrderForm);
 
-        /*TODO
-            done userOrderformを確認
-            done 間違った項目があったらもとのページにもどす  <- もともとconfirmでやってるはず
-            もとのページにエラー表示を入れる input.htmlを変える
-        */
         if (result.hasErrors()) {
             model.addAttribute("prefectures", estimateDAO.getAllPrefectures());
             model.addAttribute("userOrderForm", userOrderForm);
