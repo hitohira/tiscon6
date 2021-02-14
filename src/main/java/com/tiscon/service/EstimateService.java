@@ -6,6 +6,7 @@ import com.tiscon.dao.EstimateDao;
 import com.tiscon.domain.Customer;
 import com.tiscon.domain.CustomerOptionService;
 import com.tiscon.domain.CustomerPackage;
+import com.tiscon.domain.TruckCapacity;
 import com.tiscon.dto.UserOrderDto;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -107,6 +108,8 @@ public class EstimateService {
     }
 
     private int boxNumToPrice(int boxNum){
+        List<TruckCapacity> truckCapacityList =  estimateDAO.getAllTrucks();
+
         int tNum=0;
         int fNum=0;
         int m=0;
