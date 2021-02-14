@@ -109,18 +109,26 @@ public class EstimateService {
 
     private int boxNumToPrice(int boxNum){
         List<TruckCapacity> truckCapacityList =  estimateDAO.getAllTrucks();
+        int tPrice =truckCapacityList.get(0).getPrice();
+        int fPrice =truckCapacityList.get(1).getPrice();
+        int tMaxnum=truckCapacityList.get(0).getMaxBox();
+        int fMaxnum=truckCapacityList.get(1).getMaxBox();
 
         int tNum=0;
         int fNum=0;
         int m=0;
-        if(boxNum>0&&80>=boxNum) tNum=1;
-        else if(boxNum>80&&200>=boxNum) fNum=1;
-        else if(boxNum>200){
-            fNum=boxNum/200;
-            m=boxNum%200;
-            if(m>0&&80>=m) tNum++;
-            else if(m>80&&200>=m) fNum++;
+        if(boxNum>0&&tMaxnum>=boxNum) tNum=1;
+        else if(boxNum>tMaxnum&&fMaxnum>=boxNum) fNum=1;
+        else if(boxNum>fMaxnum){
+            fNum=boxNum/fMaxnum;
+            m=boxNum%fMaxnum;
+            if(fNum==4){
+                tNum=m/tMaxnum;
+                if(m%tMaxnum!=0) tNum++;
+            }
+            else if(m>0&&tMaxnum>=m) tNum++;
+            else if(m>tMaxnum&&fMaxnum>=m) fNum++;
         }
-        return fNum*50000+tNum*30000;
+        return fNum*fPrice+tNum*tPrice;
     }
 }
