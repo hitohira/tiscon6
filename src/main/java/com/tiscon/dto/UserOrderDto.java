@@ -16,6 +16,9 @@ public class UserOrderDto {
 
     private String newAddress;
 
+    // 転居月
+    private String month;
+
     private String box;
 
     private String bed;
@@ -80,6 +83,13 @@ public class UserOrderDto {
 
     public void setNewAddress(String newAddress) {
         this.newAddress = newAddress;
+    }
+
+    // 転居月
+    public String getMonth() { return month; }
+
+    public void setMonth(String month) {
+        this.month = month;
     }
 
     public int getBox() {
