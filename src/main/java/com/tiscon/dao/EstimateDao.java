@@ -83,6 +83,17 @@ public class EstimateDao {
     }
 
     /**
+     *  トラックテーブルに登録されているすべてのトラック情報を取得する。
+     *
+     * @return すべてのトラック
+     */
+    public List<TruckCapacity> getAllTrucks() {
+        String sql = "SELECT * FROM TRUCK_CAPACITY";
+        return parameterJdbcTemplate.query(sql,
+                BeanPropertyRowMapper.newInstance(TruckCapacity.class));
+    }
+
+    /**
      * 都道府県間の距離を取得する。
      *
      * @param prefectureIdFrom 引っ越し元の都道府県
@@ -129,7 +140,7 @@ public class EstimateDao {
      * @return 料金[円]
      */
     public int getPricePerTruck(int boxNum) {
-        String sql = "SELECT PRICE FROM TRUCK_CAPACITY WHERE MAX_BOX >= :boxNum ORDER BY PRICE LIMIT 1";
+        String sql = "SELECT PRICE FROM TRUCK_CAPACITY";
         SqlParameterSource paramSource = new MapSqlParameterSource("boxNum", boxNum);
         return parameterJdbcTemplate.queryForObject(sql, paramSource, Integer.class);
     }

@@ -6,6 +6,7 @@ import com.tiscon.dao.EstimateDao;
 import com.tiscon.domain.Customer;
 import com.tiscon.domain.CustomerOptionService;
 import com.tiscon.domain.CustomerPackage;
+import com.tiscon.domain.TruckCapacity;
 import com.tiscon.dto.UserOrderDto;
 import com.tiscon.form.UserOrderForm;
 import org.springframework.beans.BeanUtils;
@@ -115,9 +116,19 @@ public class EstimateService {
     }
 
     private int boxNumToPrice(int boxNum){
-        int fNum=boxNum/200;
-        int tNum=(boxNum%200)/80;
-        if((boxNum%200)%80!=0) tNum++;
+        List<TruckCapacity> truckCapacityList =  estimateDAO.getAllTrucks();
+
+        int tNum=0;
+        int fNum=0;
+        int m=0;
+        if(boxNum>0&&80>=boxNum) tNum=1;
+        else if(boxNum>80&&200>=boxNum) fNum=1;
+        else if(boxNum>200){
+            fNum=boxNum/200;
+            m=boxNum%200;
+            if(m>0&&80>=m) tNum++;
+            else if(m>80&&200>=m) fNum++;
+        }
         return fNum*50000+tNum*30000;
     }
 
