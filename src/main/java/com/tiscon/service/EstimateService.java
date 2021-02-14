@@ -7,6 +7,7 @@ import com.tiscon.domain.Customer;
 import com.tiscon.domain.CustomerOptionService;
 import com.tiscon.domain.CustomerPackage;
 import com.tiscon.dto.UserOrderDto;
+import com.tiscon.form.UserOrderForm;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -85,6 +86,10 @@ public class EstimateService {
         // 箱に応じてトラックの種類が変わり、それに応じて料金が変わるためトラック料金を算出する。
         int pricePerTruck = boxNumToPrice(boxes);
 
+        // 転居月から季節係数Nを決定
+        int month = Integer.parseInt(dto.getMonth());
+        double N = monthToN(month);
+
         // オプションサービスの料金を算出する。
         int priceForOptionalService = 0;
 
@@ -92,7 +97,10 @@ public class EstimateService {
             priceForOptionalService = estimateDAO.getPricePerOptionalService(OptionalServiceType.WASHING_MACHINE.getCode());
         }
 
-        return priceForDistance + pricePerTruck + priceForOptionalService;
+        // 小計
+        double totalPrice = (priceForDistance + pricePerTruck)*N + priceForOptionalService;
+        return (int) Math.floor(totalPrice);
+//        return priceForDistance + pricePerTruck + priceForOptionalService;
     }
 
     /**
@@ -111,5 +119,20 @@ public class EstimateService {
         int tNum=(boxNum%200)/80;
         if((boxNum%200)%80!=0) tNum++;
         return fNum*50000+tNum*30000;
+    }
+
+    // 転居月から季節係数Nを決定
+    private double monthToN(Integer month){
+        double N=1;
+        if(month==3){
+            N=1.5;
+        }
+        else if(month==4){
+            N=1.5;
+        }
+        else if(month==9){
+            N=1.2;
+        }
+        return N;
     }
 }

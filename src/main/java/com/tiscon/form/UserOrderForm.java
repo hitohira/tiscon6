@@ -36,6 +36,9 @@ public class UserOrderForm {
     @NotBlank
     private String newAddress;
 
+    @NotBlank
+    private String month; // 転居月
+
     @Numeric
     @NotBlank
     private String box;
@@ -87,9 +90,7 @@ public class UserOrderForm {
         this.oldPrefectureId = oldPrefectureId;
     }
 
-    public String getOldAddress() {
-        return oldAddress;
-    }
+    public String getOldAddress() { return oldAddress; }
 
     public void setOldAddress(String oldAddress) {
         this.oldAddress = oldAddress;
@@ -109,6 +110,15 @@ public class UserOrderForm {
 
     public void setNewAddress(String newAddress) {
         this.newAddress = newAddress;
+    }
+
+    // 転居月
+    public String getMonth() {
+        return month;
+    }
+
+    public void setMonth(String month) {
+        this.month = month;
     }
 
     public String getBox() {
